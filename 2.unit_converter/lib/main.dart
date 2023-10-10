@@ -12,9 +12,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String _startMeasure = '';
+
   late double _numberFrom;
 
   final List<String> _measures = [
+    '',
     'meters',
     'kilometers',
     'grams',
@@ -44,11 +47,16 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               DropdownButton(
+                  value: _startMeasure,
                   items: _measures.map((String value) {
                     return DropdownMenuItem<String>(
                         value: value, child: Text(value));
                   }).toList(),
-                  onChanged: (_) {}),
+                  onChanged: (value) {
+                    setState(() {
+                      _startMeasure = value!;
+                    });
+                  }),
               TextField(
                 onChanged: (text) {
                   var rv = double.tryParse(text);
